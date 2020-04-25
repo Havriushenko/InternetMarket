@@ -15,23 +15,23 @@ public class ProductModel {
     private double price;
     @Column(length = 500)
     private String description;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "product_group_id")
-    private ProductGroupModel productGroup;
+    private ProductGroupModel group;
 
     public ProductModel() {
     }
 
-    public ProductModel(String name, double price, ProductGroupModel productGroup) {
+    public ProductModel(String name, double price, ProductGroupModel group) {
         this.name = name;
         this.price = price;
-        this.productGroup = productGroup;
+        this.group = group;
     }
 
-    public ProductModel(String name, double price, ProductGroupModel productGroup, String description) {
+    public ProductModel(String name, double price, ProductGroupModel group, String description) {
         this.name = name;
         this.price = price;
-        this.productGroup = productGroup;
+        this.group = group;
         this.description = description;
     }
 
@@ -59,12 +59,12 @@ public class ProductModel {
         this.price = price;
     }
 
-    public ProductGroupModel getProductGroup() {
-        return productGroup;
+    public ProductGroupModel getGroup() {
+        return group;
     }
 
-    public void setProductGroup(ProductGroupModel productGroup) {
-        this.productGroup = productGroup;
+    public void setGroup(ProductGroupModel group) {
+        this.group = group;
     }
 
     public String getDescription() {
@@ -80,7 +80,7 @@ public class ProductModel {
         return "ProductModel [id=" + id +
                 ", name= " + name +
                 ", price= " + price +
-                ", productGroup= " + productGroup +
+                ", group= " + group +
                 ", description= " + description +
                 "]";
     }
@@ -100,9 +100,6 @@ public class ProductModel {
             return true;
         }
         if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        if (!super.equals(o)) {
             return false;
         }
         ProductModel product = (ProductModel) o;

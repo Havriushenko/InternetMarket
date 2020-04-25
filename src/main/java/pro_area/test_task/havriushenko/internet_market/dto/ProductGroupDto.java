@@ -3,7 +3,7 @@ package pro_area.test_task.havriushenko.internet_market.dto;
 public class ProductGroupDto {
 
     private long id;
-    private String group;
+    private String name;
 
     public long getId() {
         return id;
@@ -12,8 +12,8 @@ public class ProductGroupDto {
     public ProductGroupDto() {
     }
 
-    public ProductGroupDto(String group) {
-        this.group = group;
+    public ProductGroupDto(String name) {
+        this.name = name;
     }
 
     public void setId(long id) {
@@ -21,16 +21,16 @@ public class ProductGroupDto {
     }
 
     public String getName() {
-        return group;
+        return name;
     }
 
-    public void setGroup(String group) {
-        this.group = group;
+    public void setName(String name) {
+        this.name = name;
     }
 
     @Override
     public String toString() {
         return "ProductGroup[" +
-                "group= " + group + "]";
+                "name= " + name + "]";
     }
 }

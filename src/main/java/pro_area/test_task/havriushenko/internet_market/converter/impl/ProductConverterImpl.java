@@ -1,6 +1,5 @@
 package pro_area.test_task.havriushenko.internet_market.converter.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pro_area.test_task.havriushenko.internet_market.converter.ProductConverter;
 import pro_area.test_task.havriushenko.internet_market.converter.ProductGroupConverter;
@@ -10,8 +9,14 @@ import pro_area.test_task.havriushenko.internet_market.model.ProductModel;
 @Component("productConverter")
 public class ProductConverterImpl implements ProductConverter {
 
-    @Autowired
     private ProductGroupConverter productGroupConverter;
+
+    public ProductConverterImpl() {
+    }
+
+    public ProductConverterImpl(ProductGroupConverter productGroupConverter) {
+        this.productGroupConverter = productGroupConverter;
+    }
 
     @Override
     public ProductDto convertToDto(ProductModel model) {
@@ -20,7 +25,7 @@ public class ProductConverterImpl implements ProductConverter {
         product.setName(model.getName());
         product.setPrice(model.getPrice());
         product.setDescription(model.getDescription());
-        product.setProductGroup(productGroupConverter.convertToDto(model.getProductGroup()));
+        product.setGroup(productGroupConverter.convertToDto(model.getGroup()));
         return product;
     }
 
@@ -31,9 +36,7 @@ public class ProductConverterImpl implements ProductConverter {
         model.setName(product.getName());
         model.setPrice(product.getPrice());
         model.setDescription(product.getDescription());
-        model.setProductGroup(productGroupConverter.convertToModel(product.getProductGroup()));
+        model.setGroup(productGroupConverter.convertToModel(product.getGroup()));
         return model;
     }
-
-
 }
