@@ -1,15 +1,12 @@
 package pro_area.test_task.havriushenko.internet_market.dto;
 
-import pro_area.test_task.havriushenko.internet_market.model.ProductModel;
-
-import java.util.HashSet;
 import java.util.Set;
 
 public class ProductGroupDto {
 
     private long id;
     private String group;
-    private Set<ProductModel> products = new HashSet<ProductModel>();
+//    private Set<ProductDto> products = new HashSet<ProductDto>();
 
     public long getId() {
         return id;
@@ -22,9 +19,9 @@ public class ProductGroupDto {
         this.group = group;
     }
 
-    public ProductGroupDto(String group, Set<ProductModel> products) {
+    public ProductGroupDto(String group, Set<ProductDto> products) {
         this.group = group;
-        this.products = products;
+//        this.products = products;
     }
 
     public void setId(long id) {
@@ -39,13 +36,13 @@ public class ProductGroupDto {
         this.group = group;
     }
 
-    public Set<ProductModel> getProducts() {
-        return products;
-    }
+//    public Set<ProductDto> getProducts() {
+//        return products;
+//    }
 
-    public void setProducts(Set<ProductModel> products) {
-        this.products = products;
-    }
+//    public void setProducts(Set<ProductDto> products) {
+//        this.products = products;
+//    }
 
     @Override
     public String toString() {

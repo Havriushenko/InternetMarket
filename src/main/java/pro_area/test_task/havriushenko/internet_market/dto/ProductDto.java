@@ -1,9 +1,5 @@
 package pro_area.test_task.havriushenko.internet_market.dto;
 
-import pro_area.test_task.havriushenko.internet_market.model.CharacteristicModel;
-import pro_area.test_task.havriushenko.internet_market.model.ProductGroupModel;
-import pro_area.test_task.havriushenko.internet_market.model.ProductModel;
-
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,26 +9,26 @@ public class ProductDto {
     private String name;
     private double price;
     private String description;
-    private CharacteristicModel characteristic;
-    private Set<ProductGroupModel> productGroup = new HashSet<ProductGroupModel>();
+    private CharacteristicDto characteristic;
+    private Set<ProductGroupDto> productGroup = new HashSet<ProductGroupDto>();
 
     public ProductDto() {
     }
 
-    public ProductDto(String name, double price, Set<ProductGroupModel> productGroup) {
+    public ProductDto(String name, double price, Set<ProductGroupDto> productGroup) {
         this.name = name;
         this.price = price;
         this.productGroup = productGroup;
     }
 
-    public ProductDto(String name, double price, CharacteristicModel characteristic, Set<ProductGroupModel> productGroup) {
+    public ProductDto(String name, double price, CharacteristicDto characteristic, Set<ProductGroupDto> productGroup) {
         this.name = name;
         this.price = price;
         this.characteristic = characteristic;
         this.productGroup = productGroup;
     }
 
-    public ProductDto(String name, double price, Set<ProductGroupModel> productGroup, String description, CharacteristicModel characteristic) {
+    public ProductDto(String name, double price, Set<ProductGroupDto> productGroup, String description, CharacteristicDto characteristic) {
         this.name = name;
         this.price = price;
         this.productGroup = productGroup;
@@ -40,21 +36,12 @@ public class ProductDto {
         this.characteristic = characteristic;
     }
 
-    public ProductDto(String name, double price, String description, CharacteristicModel characteristic, Set<ProductGroupModel> productGroup) {
+    public ProductDto(String name, double price, String description, CharacteristicDto characteristic, Set<ProductGroupDto> productGroup) {
         this.name = name;
         this.price = price;
         this.description = description;
         this.characteristic = characteristic;
         this.productGroup = productGroup;
-    }
-
-    public ProductDto(ProductModel productModel) {
-        this.id = productModel.getId();
-        this.name = productModel.getName();
-        this.price = productModel.getPrice();
-        this.description = productModel.getDescription();
-//        this.characteristic = productModel.getCharacteristic();
-        this.productGroup = productModel.getProductGroup();
     }
 
     public int getId() {
@@ -81,11 +68,11 @@ public class ProductDto {
         this.price = price;
     }
 
-    public Set<ProductGroupModel> getProductGroup() {
+    public Set<ProductGroupDto> getProductGroup() {
         return productGroup;
     }
 
-    public void setProductGroup(Set<ProductGroupModel> productGroup) {
+    public void setProductGroup(Set<ProductGroupDto> productGroup) {
         this.productGroup = productGroup;
     }
 
@@ -97,17 +84,17 @@ public class ProductDto {
         this.description = description;
     }
 
-    public CharacteristicModel getCharacteristic() {
+    public CharacteristicDto getCharacteristic() {
         return characteristic;
     }
 
-    public void setCharacteristic(CharacteristicModel characteristic) {
+    public void setCharacteristic(CharacteristicDto characteristic) {
         this.characteristic = characteristic;
     }
 
     @Override
     public String toString() {
-        return "ProductModel [id=" + id +
+        return "ProductDto [id=" + id +
                 ", name= " + name +
                 ", price= " + price +
                 ", productGroup= " + productGroup +
