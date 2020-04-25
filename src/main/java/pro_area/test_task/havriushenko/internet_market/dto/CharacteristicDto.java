@@ -1,46 +1,79 @@
 package pro_area.test_task.havriushenko.internet_market.dto;
 
-import pro_area.test_task.havriushenko.internet_market.model.ProductModel;
-
-import java.util.HashSet;
 import java.util.Set;
 
 public class CharacteristicDto {
 
-    private long id;
-    private double weight;
+    private int id;
     private String color;
+    private double weight;
     private double length;
-    private double width;
     private double height;
-    private Set<ProductModel> products = new HashSet<ProductModel>();
+    private double width;
+//    private Set<ProductDto> productDtos = new HashSet<ProductDto>();
 
     public CharacteristicDto() {
+    }
+
+    public CharacteristicDto(String color) {
+        this.color = color;
     }
 
     public CharacteristicDto(double weight) {
         this.weight = weight;
     }
 
-    public CharacteristicDto(double length, double width, double height) {
-        this.length = length;
-        this.width = width;
-        this.height = height;
+    public CharacteristicDto(String color, double weight) {
+        this.color = color;
+        this.weight = weight;
     }
 
-    public CharacteristicDto(double weight, double length, double width, double height) {
+    public CharacteristicDto(double length, double height, double width) {
+        this.length = length;
+        this.height = height;
+        this.width = width;
+    }
+
+    public CharacteristicDto(String color, Set<ProductDto> productDtos) {
+        this.color = color;
+//        this.productDtos = this.productDtos;
+    }
+
+    public CharacteristicDto(double weight, Set<ProductDto> productDtos) {
+        this.weight = weight;
+//        this.productDtos = productDtos;
+    }
+
+    public CharacteristicDto(double length, double height, double width, Set<ProductDto> productDtos) {
+        this.length = length;
+        this.height = height;
+        this.width = width;
+//        this.productDtos = productDtos;
+    }
+
+    public CharacteristicDto(String color, double weight, double length, double height, double width, Set<ProductDto> productDtos) {
+        this.color = color;
         this.weight = weight;
         this.length = length;
-        this.width = width;
         this.height = height;
+        this.width = width;
+//        this.productDtos = productDtos;
     }
 
-    public long getId() {
+    public int getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(int id) {
         this.id = id;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 
     public double getWeight() {
@@ -59,14 +92,6 @@ public class CharacteristicDto {
         this.length = length;
     }
 
-    public double getWidth() {
-        return width;
-    }
-
-    public void setWidth(double width) {
-        this.width = width;
-    }
-
     public double getHeight() {
         return height;
     }
@@ -75,13 +100,30 @@ public class CharacteristicDto {
         this.height = height;
     }
 
+    public double getWidth() {
+        return width;
+    }
+
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+//    public Set<ProductDto> getProductDtos() {
+//        return productDtos;
+//    }
+
+//    public void setProductDtos(Set<ProductDto> productDtos) {
+//        this.productDtos = productDtos;
+//    }
+
     @Override
     public String toString() {
-        return "СharacteristicModel[" +
-                "weight=" + weight +
+        return "CharacteristicDto[" +
+                ", color='" + color +
+                ", weight=" + weight +
                 ", length=" + length +
-                ", width=" + width +
                 ", height=" + height +
+                ", width=" + width +
                 ']';
     }
 }

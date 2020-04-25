@@ -1,6 +1,8 @@
 package pro_area.test_task.havriushenko.internet_market.model;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import pro_area.test_task.havriushenko.internet_market.dto.ProductDto;
 
 import javax.persistence.*;
@@ -57,15 +59,6 @@ public class ProductModel {
         this.description = description;
         this.characteristic = characteristic;
         this.productGroup = productGroup;
-    }
-
-    public ProductModel(ProductDto product) {
-        this.id = product.getId();
-        this.name = product.getName();
-        this.price = product.getPrice();
-        this.description = product.getDescription();
-        this.characteristic = product.getCharacteristic();
-        this.productGroup = product.getProductGroup();
     }
 
     public int getId() {

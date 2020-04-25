@@ -1,6 +1,6 @@
 package pro_area.test_task.havriushenko.internet_market.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -23,8 +23,7 @@ public class CharacteristicModel {
     private double height;
     @Column
     private double width;
-    @JsonIgnore
-    @OneToMany(fetch = FetchType.EAGER)
+    @OneToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "product_characteristic_relation", joinColumns = {@JoinColumn(name = "product_id")}, inverseJoinColumns = {@JoinColumn(name = "characteristic_id")})
     private Set<ProductModel> productModels = new HashSet<ProductModel>();
 

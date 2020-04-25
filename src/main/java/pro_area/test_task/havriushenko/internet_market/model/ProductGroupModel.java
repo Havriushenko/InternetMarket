@@ -1,6 +1,7 @@
 package pro_area.test_task.havriushenko.internet_market.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -15,8 +16,7 @@ public class ProductGroupModel {
     private long id;
     @Column(length = 50)
     private String group_name;
-    @JsonIgnore
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "product_product_group_relation", joinColumns = {@JoinColumn(name = "product_id")}, inverseJoinColumns = {@JoinColumn(name = "product_group_id")})
     private Set<ProductModel> products = new HashSet<ProductModel>();
 
