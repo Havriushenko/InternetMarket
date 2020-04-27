@@ -1,13 +1,6 @@
 package pro_area.test_task.havriushenko.internet_market.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-import pro_area.test_task.havriushenko.internet_market.dto.ProductDto;
-
 import javax.persistence.*;
-import java.util.HashSet;
-import java.util.Set;
 
 @Entity
 @Table(name = "product")
@@ -23,42 +16,23 @@ public class ProductModel {
     @Column(length = 500)
     private String description;
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinTable(name = "product_characteristic_relation", joinColumns = {@JoinColumn(name = "characteristic_id")}, inverseJoinColumns = {@JoinColumn(name = "product_id")})
-    private CharacteristicModel characteristic;
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "product_product_group_relation", joinColumns = {@JoinColumn(name = "product_group_id")}, inverseJoinColumns = {@JoinColumn(name = "product_id")})
-    private Set<ProductGroupModel> productGroup = new HashSet<ProductGroupModel>();
+    @JoinColumn(name = "product_group_id")
+    private ProductGroupModel productGroup;
 
     public ProductModel() {
     }
 
-    public ProductModel(String name, double price, Set<ProductGroupModel> productGroup) {
+    public ProductModel(String name, double price, ProductGroupModel productGroup) {
         this.name = name;
         this.price = price;
         this.productGroup = productGroup;
     }
 
-    public ProductModel(String name, double price, CharacteristicModel characteristic, Set<ProductGroupModel> productGroup) {
-        this.name = name;
-        this.price = price;
-        this.characteristic = characteristic;
-        this.productGroup = productGroup;
-    }
-
-    public ProductModel(String name, double price, Set<ProductGroupModel> productGroup, String description, CharacteristicModel characteristic) {
+    public ProductModel(String name, double price, ProductGroupModel productGroup, String description) {
         this.name = name;
         this.price = price;
         this.productGroup = productGroup;
         this.description = description;
-        this.characteristic = characteristic;
-    }
-
-    public ProductModel(String name, double price, String description, CharacteristicModel characteristic, Set<ProductGroupModel> productGroup) {
-        this.name = name;
-        this.price = price;
-        this.description = description;
-        this.characteristic = characteristic;
-        this.productGroup = productGroup;
     }
 
     public int getId() {
@@ -85,11 +59,11 @@ public class ProductModel {
         this.price = price;
     }
 
-    public Set<ProductGroupModel> getProductGroup() {
+    public ProductGroupModel getProductGroup() {
         return productGroup;
     }
 
-    public void setProductGroup(Set<ProductGroupModel> productGroup) {
+    public void setProductGroup(ProductGroupModel productGroup) {
         this.productGroup = productGroup;
     }
 
@@ -101,14 +75,6 @@ public class ProductModel {
         this.description = description;
     }
 
-    public CharacteristicModel getCharacteristic() {
-        return characteristic;
-    }
-
-    public void setCharacteristic(CharacteristicModel characteristic) {
-        this.characteristic = characteristic;
-    }
-
     @Override
     public String toString() {
         return "ProductModel [id=" + id +
@@ -116,7 +82,6 @@ public class ProductModel {
                 ", price= " + price +
                 ", productGroup= " + productGroup +
                 ", description= " + description +
-                ", Perfomance= " + characteristic +
                 "]";
     }
 

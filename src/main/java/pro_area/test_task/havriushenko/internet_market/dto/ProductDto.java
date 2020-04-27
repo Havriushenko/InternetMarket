@@ -1,47 +1,27 @@
 package pro_area.test_task.havriushenko.internet_market.dto;
 
-import java.util.HashSet;
-import java.util.Set;
-
 public class ProductDto {
 
     private int id;
     private String name;
     private double price;
     private String description;
-    private CharacteristicDto characteristic;
-    private Set<ProductGroupDto> productGroup = new HashSet<ProductGroupDto>();
+    private ProductGroupDto productGroup;
 
     public ProductDto() {
     }
 
-    public ProductDto(String name, double price, Set<ProductGroupDto> productGroup) {
+    public ProductDto(String name, double price, ProductGroupDto productGroup) {
         this.name = name;
         this.price = price;
         this.productGroup = productGroup;
     }
 
-    public ProductDto(String name, double price, CharacteristicDto characteristic, Set<ProductGroupDto> productGroup) {
-        this.name = name;
-        this.price = price;
-        this.characteristic = characteristic;
-        this.productGroup = productGroup;
-    }
-
-    public ProductDto(String name, double price, Set<ProductGroupDto> productGroup, String description, CharacteristicDto characteristic) {
+    public ProductDto(String name, double price, ProductGroupDto productGroup, String description) {
         this.name = name;
         this.price = price;
         this.productGroup = productGroup;
         this.description = description;
-        this.characteristic = characteristic;
-    }
-
-    public ProductDto(String name, double price, String description, CharacteristicDto characteristic, Set<ProductGroupDto> productGroup) {
-        this.name = name;
-        this.price = price;
-        this.description = description;
-        this.characteristic = characteristic;
-        this.productGroup = productGroup;
     }
 
     public int getId() {
@@ -68,11 +48,11 @@ public class ProductDto {
         this.price = price;
     }
 
-    public Set<ProductGroupDto> getProductGroup() {
+    public ProductGroupDto getProductGroup() {
         return productGroup;
     }
 
-    public void setProductGroup(Set<ProductGroupDto> productGroup) {
+    public void setProductGroup(ProductGroupDto productGroup) {
         this.productGroup = productGroup;
     }
 
@@ -84,22 +64,12 @@ public class ProductDto {
         this.description = description;
     }
 
-    public CharacteristicDto getCharacteristic() {
-        return characteristic;
-    }
-
-    public void setCharacteristic(CharacteristicDto characteristic) {
-        this.characteristic = characteristic;
-    }
-
     @Override
     public String toString() {
-        return "ProductDto [id=" + id +
-                ", name= " + name +
+        return "Product[name= " + name +
                 ", price= " + price +
                 ", productGroup= " + productGroup +
-                ", description= " + description +
-                ", characteristic= " + characteristic + "]";
+                ", description= " + description + "]";
     }
 
     @Override
