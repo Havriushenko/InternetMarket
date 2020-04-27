@@ -1,10 +1,6 @@
 package pro_area.test_task.havriushenko.internet_market.model;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
-
 import javax.persistence.*;
-import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -16,9 +12,6 @@ public class ProductGroupModel {
     private long id;
     @Column(length = 50)
     private String group_name;
-    @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "product_product_group_relation", joinColumns = {@JoinColumn(name = "product_id")}, inverseJoinColumns = {@JoinColumn(name = "product_group_id")})
-    private Set<ProductModel> products = new HashSet<ProductModel>();
 
 
     public ProductGroupModel() {
@@ -30,7 +23,6 @@ public class ProductGroupModel {
 
     public ProductGroupModel(String group, Set<ProductModel> products) {
         this.group_name = group_name;
-        this.products = products;
     }
 
     public long getId() {
@@ -41,7 +33,7 @@ public class ProductGroupModel {
         this.id = id;
     }
 
-    public String getGroup() {
+    public String getName() {
         return group_name;
     }
 
@@ -49,19 +41,10 @@ public class ProductGroupModel {
         this.group_name = group_name;
     }
 
-    public Set<ProductModel> getProducts() {
-        return products;
-    }
-
-    public void setProducts(Set<ProductModel> products) {
-        this.products = products;
-    }
-
     @Override
     public String toString() {
-        return "ProductGroupModel[" +
-                "group= " + group_name +
-                ']';
+        return "ProductGroupModel[id=" + id +
+                "group= " + group_name + "]";
     }
 
     @Override
@@ -85,7 +68,7 @@ public class ProductGroupModel {
             return false;
         }
         ProductGroupModel productGroup = (ProductGroupModel) o;
-        return id == productGroup.id && group_name == productGroup.getGroup();
+        return id == productGroup.id && group_name == productGroup.getName();
     }
 
 }
