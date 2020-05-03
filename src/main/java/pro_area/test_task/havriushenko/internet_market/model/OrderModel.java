@@ -18,7 +18,7 @@ public class OrderModel {
     @JoinColumn(name = "user_id")
     private UserModel user;
     @OneToMany(fetch = FetchType.EAGER)
-    @JoinTable(name = "order_info", joinColumns = {@JoinColumn(name = "product_id")})
+//    @JoinTable(name = "order_info", joinColumns = {@JoinColumn(name = "order_id")})
     private Set<OrderInfoModel> products;
 
     public OrderModel() {

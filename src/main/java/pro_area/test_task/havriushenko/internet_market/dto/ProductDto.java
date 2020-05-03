@@ -6,21 +6,21 @@ public class ProductDto {
     private String name;
     private double price;
     private String description;
-    private ProductGroupDto productGroup;
+    private ProductGroupDto group;
 
     public ProductDto() {
     }
 
-    public ProductDto(String name, double price, ProductGroupDto productGroup) {
+    public ProductDto(String name, double price, ProductGroupDto group) {
         this.name = name;
         this.price = price;
-        this.productGroup = productGroup;
+        this.group = group;
     }
 
-    public ProductDto(String name, double price, ProductGroupDto productGroup, String description) {
+    public ProductDto(String name, double price, ProductGroupDto group, String description) {
         this.name = name;
         this.price = price;
-        this.productGroup = productGroup;
+        this.group = group;
         this.description = description;
     }
 
@@ -48,12 +48,12 @@ public class ProductDto {
         this.price = price;
     }
 
-    public ProductGroupDto getProductGroup() {
-        return productGroup;
+    public ProductGroupDto getGroup() {
+        return group;
     }
 
-    public void setProductGroup(ProductGroupDto productGroup) {
-        this.productGroup = productGroup;
+    public void setGroup(ProductGroupDto group) {
+        this.group = group;
     }
 
     public String getDescription() {
@@ -68,7 +68,7 @@ public class ProductDto {
     public String toString() {
         return "Product[name= " + name +
                 ", price= " + price +
-                ", productGroup= " + productGroup +
+                ", group= " + group +
                 ", description= " + description + "]";
     }
 
@@ -87,9 +87,6 @@ public class ProductDto {
             return true;
         }
         if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        if (!super.equals(o)) {
             return false;
         }
         ProductDto product = (ProductDto) o;

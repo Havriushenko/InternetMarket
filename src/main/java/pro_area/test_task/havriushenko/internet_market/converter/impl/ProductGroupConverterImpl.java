@@ -12,7 +12,7 @@ public class ProductGroupConverterImpl implements ProductGroupConverter {
     public ProductGroupDto convertToDto(ProductGroupModel model) {
         ProductGroupDto productGroup = new ProductGroupDto();
         productGroup.setId(model.getId());
-        productGroup.setGroup(model.getName());
+        productGroup.setName(model.getName());
         return productGroup;
     }
 

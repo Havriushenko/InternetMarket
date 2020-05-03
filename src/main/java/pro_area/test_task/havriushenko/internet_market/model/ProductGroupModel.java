@@ -10,19 +10,19 @@ public class ProductGroupModel {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    @Column(length = 50)
-    private String group_name;
+    @Column(name = "group_name", length = 50)
+    private String name;
 
 
     public ProductGroupModel() {
     }
 
-    public ProductGroupModel(String group_name) {
-        this.group_name = group_name;
+    public ProductGroupModel(String name) {
+        this.name = name;
     }
 
     public ProductGroupModel(String group, Set<ProductModel> products) {
-        this.group_name = group_name;
+        this.name = name;
     }
 
     public long getId() {
@@ -34,17 +34,17 @@ public class ProductGroupModel {
     }
 
     public String getName() {
-        return group_name;
+        return name;
     }
 
     public void setGroup(String group_name) {
-        this.group_name = group_name;
+        this.name = group_name;
     }
 
     @Override
     public String toString() {
         return "ProductGroupModel[id=" + id +
-                "group= " + group_name + "]";
+                "group= " + name + "]";
     }
 
     @Override
@@ -52,7 +52,7 @@ public class ProductGroupModel {
         final int prime = 25;
         int result = 1;
         result = (int) (prime * result + id);
-        result = prime * result + ((group_name == null) ? 0 : group_name.hashCode());
+        result = prime * result + ((name == null) ? 0 : name.hashCode());
         return result;
     }
 
@@ -64,11 +64,8 @@ public class ProductGroupModel {
         if (o == null || getClass() != o.getClass()) {
             return false;
         }
-        if (!super.equals(o)) {
-            return false;
-        }
         ProductGroupModel productGroup = (ProductGroupModel) o;
-        return id == productGroup.id && group_name == productGroup.getName();
+        return id == productGroup.id && name == productGroup.getName();
     }
 
 }
