@@ -17,9 +17,8 @@ public class OrderModel {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "user_id")
     private UserModel user;
-    @OneToMany(fetch = FetchType.EAGER)
-//    @JoinTable(name = "order_info", joinColumns = {@JoinColumn(name = "order_id")})
-    private Set<OrderInfoModel> products;
+    @OneToMany(mappedBy = "order",fetch = FetchType.LAZY)
+    private Set<OrderInfoModel> orderInfoModels;
 
     public OrderModel() {
     }
@@ -49,12 +48,12 @@ public class OrderModel {
         this.user = user;
     }
 
-    public Set<OrderInfoModel> getProducts() {
-        return products;
+    public Set<OrderInfoModel> getOrderInfoModels() {
+        return orderInfoModels;
     }
 
-    public void setProducts(Set<OrderInfoModel> products) {
-        this.products = products;
+    public void setOrderInfoModels(Set<OrderInfoModel> orderInfoModels) {
+        this.orderInfoModels = orderInfoModels;
     }
 
     @Override
@@ -62,7 +61,7 @@ public class OrderModel {
         return "OrderDto[" +
                 " user=" + user +
                 ", status='" + status + '\'' +
-                ", products=" + products +
+                ", orderInfoModels=" + orderInfoModels +
                 "]";
     }
 }

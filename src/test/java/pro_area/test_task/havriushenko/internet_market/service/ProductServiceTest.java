@@ -157,7 +157,7 @@ public class ProductServiceTest {
         when(productRepository.findById(FIRST_TEST_PRODUCT_ID)).thenReturn(null);
 
         try {
-            tested.updateProduct(product2);
+            tested.editProduct(product2);
         } catch (IllegalArgumentException ex) {
             String message = ex.getMessage();
             assertEquals(MESSAGE_SUCH_PRODUCT_DOES_NOT_EXIST, message);
@@ -169,7 +169,7 @@ public class ProductServiceTest {
         when(productRepository.findById(SECOND_TEST_PRODUCT_ID)).thenReturn(Optional.ofNullable(productModel2));
         when(productConverter.convertToModel(product2)).thenReturn(productModel2);
 
-        tested.updateProduct(product2);
+        tested.editProduct(product2);
 
         verify(productRepository).save(any());
     }
