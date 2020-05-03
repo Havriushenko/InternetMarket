@@ -1,5 +1,6 @@
 package pro_area.test_task.havriushenko.internet_market.converter.impl;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import pro_area.test_task.havriushenko.internet_market.converter.ProductConverter;
 import pro_area.test_task.havriushenko.internet_market.converter.ProductGroupConverter;
@@ -9,10 +10,8 @@ import pro_area.test_task.havriushenko.internet_market.model.ProductModel;
 @Component("productConverter")
 public class ProductConverterImpl implements ProductConverter {
 
+    @Autowired
     private ProductGroupConverter productGroupConverter;
-
-    public ProductConverterImpl() {
-    }
 
     public ProductConverterImpl(ProductGroupConverter productGroupConverter) {
         this.productGroupConverter = productGroupConverter;

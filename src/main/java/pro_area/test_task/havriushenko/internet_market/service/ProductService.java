@@ -1,5 +1,6 @@
 package pro_area.test_task.havriushenko.internet_market.service;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pro_area.test_task.havriushenko.internet_market.converter.ProductConverter;
 import pro_area.test_task.havriushenko.internet_market.dto.ProductDto;
@@ -18,12 +19,12 @@ import static pro_area.test_task.havriushenko.internet_market.util.Constans.*;
 @Service
 public class ProductService {
 
+    @Autowired
     private ProductConverter productConverter;
+    @Autowired
     private ProductGroupRerository productGroupRerository;
+    @Autowired
     private ProductRepository productRepository;
-
-    public ProductService() {
-    }
 
     public ProductService(ProductConverter productConverter, ProductGroupRerository productGroupRerository, ProductRepository productRepository) {
         this.productConverter = productConverter;
@@ -56,7 +57,7 @@ public class ProductService {
         return true;
     }
 
-    public void updateProduct(ProductDto product) {
+    public void editProduct(ProductDto product) {
         if (!findProductById(product.getId()).isPresent()) {
             throw new IllegalArgumentException(MESSAGE_SUCH_PRODUCT_DOES_NOT_EXIST);
         }

@@ -1,6 +1,7 @@
 package pro_area.test_task.havriushenko.internet_market.model;
 
 import javax.persistence.*;
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
@@ -11,18 +12,26 @@ public class UserModel {
     private int id;
     @Column(length = 100)
     private String name;
+    @Column(length = 300)
+    private String password;
     @Column(length = 100)
     private String surname;
     @Column(length = 100)
     private String email;
+    @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)
+    @JoinTable(name = "user_role", joinColumns = {@JoinColumn(name = "user_id")})
+    @Enumerated(EnumType.STRING)
+    private Set<Role> roles;
 
     public UserModel() {
     }
 
-    public UserModel(String name, String surname, String email) {
+    public UserModel(String name, String password, String surname, String email, Set<Role> roles) {
         this.name = name;
+        this.password = password;
         this.surname = surname;
         this.email = email;
+        this.roles = roles;
     }
 
     public int getId() {
@@ -41,6 +50,14 @@ public class UserModel {
         this.name = name;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     public String getSurname() {
         return surname;
     }
@@ -57,12 +74,21 @@ public class UserModel {
         this.email = email;
     }
 
+    public Set<Role> getRole() {
+        return roles;
+    }
+
+    public void setRole(Set<Role> roles) {
+        this.roles = roles;
+    }
+
     @Override
     public String toString() {
         return "UserDto[" +
                 "name='" + name + '\'' +
                 ", surname='" + surname + '\'' +
                 ", email='" + email + '\'' +
+                ", roles='" + roles + '\'' +
                 "]";
     }
 
@@ -81,9 +107,6 @@ public class UserModel {
             return true;
         }
         if (o == null || getClass() != o.getClass()) {
-            return false;
-        }
-        if (!super.equals(o)) {
             return false;
         }
         UserModel user = (UserModel) o;

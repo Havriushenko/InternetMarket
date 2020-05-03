@@ -18,6 +18,8 @@ public class ProductModel {
     @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
     @JoinColumn(name = "product_group_id")
     private ProductGroupModel group;
+    @OneToOne(mappedBy = "product")
+    private OrderInfoModel orderInfoModel;
 
     public ProductModel() {
     }
@@ -73,6 +75,14 @@ public class ProductModel {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public OrderInfoModel getOrderInfoModel() {
+        return orderInfoModel;
+    }
+
+    public void setOrderInfoModel(OrderInfoModel orderInfoModel) {
+        this.orderInfoModel = orderInfoModel;
     }
 
     @Override

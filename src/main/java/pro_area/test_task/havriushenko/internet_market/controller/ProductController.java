@@ -1,5 +1,6 @@
 package pro_area.test_task.havriushenko.internet_market.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import pro_area.test_task.havriushenko.internet_market.dto.ProductDto;
 import pro_area.test_task.havriushenko.internet_market.service.ProductService;
@@ -10,6 +11,7 @@ import java.util.List;
 @RequestMapping("/product")
 public class ProductController {
 
+    @Autowired
     private ProductService productService;
 
     public ProductController(ProductService productService) {
@@ -23,7 +25,7 @@ public class ProductController {
 
     @PutMapping("/{id}")
     public void editProduct(@PathVariable int id, @RequestBody ProductDto productDto) {
-        productService.updateProduct(productDto);
+        productService.editProduct(productDto);
     }
 
     @GetMapping("/getProducts")
@@ -36,8 +38,8 @@ public class ProductController {
         productService.deleteProduct(id);
     }
 
-    @GetMapping("/getProductById/{id}")
-    public ProductDto getProductById(@PathVariable int id) {
+    @GetMapping("/getProductById")
+    public ProductDto getProductById(@RequestParam int id) {
         return productService.getProductById(id);
     }
 }
