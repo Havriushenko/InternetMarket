@@ -8,7 +8,7 @@ import pro_area.test_task.havriushenko.internet_market.service.ProductService;
 import java.util.List;
 
 @RestController
-@RequestMapping("/product")
+@RequestMapping("/products")
 public class ProductController {
 
     @Autowired
@@ -18,28 +18,28 @@ public class ProductController {
         this.productService = productService;
     }
 
-    @PostMapping("/create")
+    @PostMapping
     public void addProduct(@RequestBody ProductDto productDto) {
         productService.addProduct(productDto);
     }
 
     @PutMapping("/{id}")
-    public void editProduct(@PathVariable int id, @RequestBody ProductDto productDto) {
+    public void editProduct(@RequestParam int id, @RequestBody ProductDto productDto) {
         productService.editProduct(productDto);
     }
 
-    @GetMapping("/getProducts")
+    @GetMapping
     public List<ProductDto> getProducts() {
         return productService.getProducts();
+    }
+
+    @GetMapping("/{id}")
+    public ProductDto getProductById(@PathVariable int id) {
+        return productService.getProductById(id);
     }
 
     @DeleteMapping("/{id}")
     public void deleteProduct(@PathVariable int id){
         productService.deleteProduct(id);
-    }
-
-    @GetMapping("/getProductById")
-    public ProductDto getProductById(@RequestParam int id) {
-        return productService.getProductById(id);
     }
 }

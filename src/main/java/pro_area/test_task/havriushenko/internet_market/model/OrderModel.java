@@ -1,6 +1,7 @@
 package pro_area.test_task.havriushenko.internet_market.model;
 
 import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Set;
 
 @Entity
@@ -11,25 +12,36 @@ public class OrderModel {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private int id;
     @Column(length = 10)
-    private String status;      //One status could be open and many statuses could be closed
+    private boolean status;      //One status could be open and many statuses could be closed
     @Column(length = 30)
     private String data;
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne
     @JoinColumn(name = "user_id")
     private UserModel user;
     @OneToMany(mappedBy = "order",fetch = FetchType.LAZY)
-    private Set<OrderInfoModel> orderInfoModels;
+    private Set<OrderInfoModel> orderInfoModels = new HashSet<>();
 
     public OrderModel() {
     }
 
-    public OrderModel(UserModel user) {
+    public OrderModel(boolean status, UserModel user) {
+        this.status = status;
         this.user = user;
     }
 
-    public OrderModel(String status, UserModel user) {
+    public OrderModel(boolean status, String data, UserModel user, Set<OrderInfoModel> orderInfoModels) {
         this.status = status;
+        this.data = data;
         this.user = user;
+        this.orderInfoModels = orderInfoModels;
+    }
+
+    public OrderModel(int id, boolean status, String data, UserModel user, Set<OrderInfoModel> orderInfoModels) {
+        this.id = id;
+        this.status = status;
+        this.data = data;
+        this.user = user;
+        this.orderInfoModels = orderInfoModels;
     }
 
     public int getId() {
@@ -54,6 +66,22 @@ public class OrderModel {
 
     public void setOrderInfoModels(Set<OrderInfoModel> orderInfoModels) {
         this.orderInfoModels = orderInfoModels;
+    }
+
+    public boolean getStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
     }
 
     @Override

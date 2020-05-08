@@ -1,20 +1,32 @@
 package pro_area.test_task.havriushenko.internet_market.dto;
 
-import java.util.Set;
+import java.util.HashMap;
+import java.util.Map;
 
 public class OrderDto {
 
     private int id;
-    private String status;      //One status could be open and many statuses could be closed
+    private boolean status;      //One status could be open and many statuses could be closed
     private String data;
     private UserDto user;
-    private Set<OrderInfoDto> products;
+    private Map<ProductDto, Integer> products = new HashMap<ProductDto, Integer>();
 
     public OrderDto() {
     }
 
-    public OrderDto(UserDto user) {
+    public OrderDto(boolean status, String data, UserDto user, Map<ProductDto, Integer> products) {
+        this.status = status;
+        this.data = data;
         this.user = user;
+        this.products = products;
+    }
+
+    public OrderDto(int id, boolean status, String data, UserDto user, Map<ProductDto, Integer> products) {
+        this.id = id;
+        this.status = status;
+        this.data = data;
+        this.user = user;
+        this.products = products;
     }
 
     public int getId() {
@@ -33,12 +45,28 @@ public class OrderDto {
         this.user = user;
     }
 
-    public Set<OrderInfoDto> getProducts() {
+    public Map<ProductDto, Integer> getProducts() {
         return products;
     }
 
-    public void setProducts(Set<OrderInfoDto> products) {
+    public void setProducts(Map<ProductDto, Integer> products) {
         this.products = products;
+    }
+
+    public boolean isStatus() {
+        return status;
+    }
+
+    public void setStatus(boolean status) {
+        this.status = status;
+    }
+
+    public String getData() {
+        return data;
+    }
+
+    public void setData(String data) {
+        this.data = data;
     }
 
     @Override

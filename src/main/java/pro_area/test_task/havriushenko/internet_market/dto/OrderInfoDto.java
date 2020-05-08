@@ -3,7 +3,7 @@ package pro_area.test_task.havriushenko.internet_market.dto;
 import pro_area.test_task.havriushenko.internet_market.model.ProductModel;
 
 public class OrderInfoDto {
-
+//
     private int id;
     private int quantity;
     private ProductModel productModel;
