@@ -21,3 +21,6 @@
 # Method: GET
 # Url: http://localhost:8080/product/getProductById?id=1
 #
+#
+#SWAGGER
+#URL: http://localhost:8080/swagger-ui.html
