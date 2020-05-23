@@ -15,7 +15,7 @@ public class ProductModel {
     private double price;
     @Column(length = 500)
     private String description;
-    @ManyToOne(fetch = FetchType.EAGER,cascade = CascadeType.ALL)
+    @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "product_group_id")
     private ProductGroupModel group;
     @OneToOne(mappedBy = "product")

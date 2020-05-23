@@ -1,24 +1,29 @@
 package pro_area.test_task.havriushenko.internet_market.model;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.EmbeddedId;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.MapsId;
+import javax.persistence.OneToOne;
+import javax.persistence.Table;
 import java.io.Serializable;
 
 @Entity
 @Table(name = "order_info")
 public class OrderInfoModel implements Serializable {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
-    @Column
-    private int quantity;
     @EmbeddedId
     private OrderInfoKey orderInfoKey;
-    @ManyToOne
+    @Column
+    private int quantity;
+    @ManyToOne(fetch = FetchType.LAZY)
     @MapsId("order_id")
     @JoinColumn(name = "order_id")
     private OrderModel order;
-    @OneToOne
+    @OneToOne(fetch = FetchType.LAZY)
     @MapsId("product_id")
     @JoinColumn(name = "product_id")
     private ProductModel product;
@@ -33,19 +38,6 @@ public class OrderInfoModel implements Serializable {
         this.product = product;
     }
 
-    //    public OrderInfoModel(int quantity, ProductModel product) {
-//        this.quantity = quantity;
-//        this.product = product;
-//    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-    }
-
     public int getQuantity() {
         return quantity;
     }
@@ -54,14 +46,9 @@ public class OrderInfoModel implements Serializable {
         this.quantity = quantity;
     }
 
-//    public ProductModel getProduct() {
-//        return product;
-//    }
-
-//    public void setProduct(ProductModel product) {
-//        this.product = product;
-//    }
-
+    public void setProduct(ProductModel product) {
+        this.product = product;
+    }
 
     public OrderInfoKey getOrderInfoKey() {
         return orderInfoKey;
@@ -83,8 +70,8 @@ public class OrderInfoModel implements Serializable {
         return product;
     }
 
-    public void setProduct(ProductModel product) {
-        this.product = product;
+    public void setProductId(ProductModel productId) {
+        this.product = productId;
     }
 
     @Override

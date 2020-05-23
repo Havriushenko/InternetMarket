@@ -57,13 +57,12 @@ PRIMARY KEY (`id`));
 /*Creates the table of Orders info and relation between Products and Orders*/
 /*****************************/
 CREATE TABLE if not exists `order_info` (
-`id` INT NOT NULL auto_increment,
 `order_id` INT NOT NULL,
 `product_id` INT NOT NULL,
 `quantity` INT NOT NULL,
 FOREIGN KEY(order_id)REFERENCES orders(id) ON DELETE CASCADE,
 FOREIGN KEY(product_id)REFERENCES product(id) ON DELETE CASCADE,
-PRIMARY KEY (`id`));
+PRIMARY KEY (order_id, product_id));
 
 /*****************************/
 /*Creates test products*/
@@ -91,6 +90,6 @@ insert into orders(id,status,data,user_id) values(1,true,null,2);
 insert into orders(id,status,data,user_id) values(2,false,"08.05.2020",2);
 insert into orders(id,status,data,user_id) values(3,true,null,3);
 
-insert into order_info(id,order_id,product_id,quantity) value(1,1,2,10);
-insert into order_info(id,order_id,product_id,quantity) value(2,1,3,10);
-insert into order_info(id,order_id,product_id,quantity) value(3,2,1,100);
+insert into order_info(order_id,product_id,quantity) value(1,2,10);
+insert into order_info(order_id,product_id,quantity) value(1,3,10);
+insert into order_info(order_id,product_id,quantity) value(2,1,100);

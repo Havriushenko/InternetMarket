@@ -1,5 +1,6 @@
 package pro_area.test_task.havriushenko.internet_market.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import pro_area.test_task.havriushenko.internet_market.model.Role;
 
 import java.util.Set;
@@ -8,6 +9,7 @@ public class UserDto {
 
     private int id;
     private String name;
+//    @JsonIgnore
     private String password;
     private String surname;
     private String email;

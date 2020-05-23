@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import pro_area.test_task.havriushenko.internet_market.converter.ProductConverter;
 import pro_area.test_task.havriushenko.internet_market.dto.ProductDto;
+import pro_area.test_task.havriushenko.internet_market.exception.ProductNotFoundException;
 import pro_area.test_task.havriushenko.internet_market.model.ProductGroupModel;
 import pro_area.test_task.havriushenko.internet_market.model.ProductModel;
 import pro_area.test_task.havriushenko.internet_market.repository.ProductGroupRerository;
@@ -75,11 +76,20 @@ public class ProductService {
         return product;
     }
 
+    public ProductModel getProductModelById(int id) {
+        Optional<ProductModel> model = findProductById(id);
+        if(model.isPresent()){
+            return model.get();
+        }
+        throw new ProductNotFoundException(PRODUCT_NOT_FOUND_EXCEPTION);
+    }
+
     public void deleteProduct(int id) {
         Optional<ProductModel> model = findProductById(id);
         if(model.isPresent()){
             productRepository.delete(model.get());
         }
+        throw new ProductNotFoundException(PRODUCT_NOT_FOUND_EXCEPTION);
     }
 
     private Optional<ProductModel> findProductById(int id) {

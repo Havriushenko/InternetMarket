@@ -6,7 +6,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 import pro_area.test_task.havriushenko.internet_market.converter.UserConverter;
 import pro_area.test_task.havriushenko.internet_market.dto.UserDto;
@@ -18,6 +17,7 @@ import java.util.Collections;
 import java.util.Optional;
 
 import static java.util.Collections.emptyList;
+import static pro_area.test_task.havriushenko.internet_market.util.Constans.USER_WAS_NOT_FOUND_EXCEPTION;
 
 @Service
 public class UserService implements UserDetailsService {
@@ -43,11 +43,27 @@ public class UserService implements UserDetailsService {
         }
     }
 
+    public UserDto findByEmail(String email){
+        Optional<UserModel> model = userRepository.findByEmail(email);
+        if(model.isPresent()){
+               return userConverter.convertToDto(model.get());
+        }
+        throw new UsernameNotFoundException(USER_WAS_NOT_FOUND_EXCEPTION);
+    }
+
+    public UserModel getUserModelByEmail(String email){
+        Optional<UserModel> model = userRepository.findByEmail(email);
+        if(model.isPresent()){
+            return model.get();
+        }
+        throw new UsernameNotFoundException(USER_WAS_NOT_FOUND_EXCEPTION);
+    }
+
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
         Optional<UserModel> model = userRepository.findByEmail(email);
         if (!model.isPresent()) {
-            throw new UsernameNotFoundException("User was not found");
+            throw new UsernameNotFoundException(USER_WAS_NOT_FOUND_EXCEPTION);
         }
         UserDto user = userConverter.convertToDto(model.get());
         return new User(user.getEmail(), user.getPassword(), emptyList());

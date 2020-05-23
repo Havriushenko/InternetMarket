@@ -6,6 +6,6 @@ public interface SecurityConstants {
     String TOKEN_PREFIX = "Bearer ";   //подаватель,предъявитель
     String HEADER_STRING = "Authorization";
     String SING_UP_URL = "/users/sing-up";
-    String GET_ALL_PRODUCTS_URL = "/product/getProducts";
-    String GET_PRODUCT_BY_ID_URL = "/product/getProductById";
+    String GET_ALL_PRODUCTS_URL = "/products";
+    String GET_PRODUCT_BY_ID_URL = "/products/**";
 }
