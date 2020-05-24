@@ -14,7 +14,6 @@ public class UserConverterImpl implements UserConverter {
         user.setId(model.getId());
         user.setName(model.getName());
         user.setSurname(model.getSurname());
-        user.setPassword(model.getPassword());
         user.setRole(model.getRole());
         user.setEmail(model.getEmail());
         return user;

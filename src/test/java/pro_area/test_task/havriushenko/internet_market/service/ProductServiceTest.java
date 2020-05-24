@@ -9,6 +9,7 @@ import org.mockito.MockitoAnnotations;
 import pro_area.test_task.havriushenko.internet_market.converter.ProductConverter;
 import pro_area.test_task.havriushenko.internet_market.dto.ProductDto;
 import pro_area.test_task.havriushenko.internet_market.dto.ProductGroupDto;
+import pro_area.test_task.havriushenko.internet_market.exception.ProductNotFoundException;
 import pro_area.test_task.havriushenko.internet_market.model.ProductGroupModel;
 import pro_area.test_task.havriushenko.internet_market.model.ProductModel;
 import pro_area.test_task.havriushenko.internet_market.repository.ProductGroupRerository;
@@ -57,14 +58,14 @@ public class ProductServiceTest {
 
     private void createProductDtos() {
         product1 = new ProductDto();
-        product1.setId(FIRST_TEST_PRODUCT_ID);
+        product1.setId(FIRST_TEST_ID);
         product1.setName(TEST_PRODUCT_NAME_1);
         product1.setPrice(TEST_PRODUCT_PRICE);
         product1.setDescription(TEST_PRODUCT_DESCRIPTION);
         product1.setGroup(productGroup);
 
         product2 = new ProductDto();
-        product2.setId(SECOND_TEST_PRODUCT_ID);
+        product2.setId(SECOND_TEST_ID);
         product2.setName(TEST_PRODUCT_NAME_2);
         product2.setPrice(TEST_PRODUCT_PRICE);
         product2.setDescription(TEST_PRODUCT_DESCRIPTION);
@@ -77,14 +78,14 @@ public class ProductServiceTest {
 
     private void createProductModels() {
         productModel1 = new ProductModel();
-        productModel1.setId(FIRST_TEST_PRODUCT_ID);
+        productModel1.setId(FIRST_TEST_ID);
         productModel1.setName(TEST_PRODUCT_NAME_1);
         productModel1.setPrice(TEST_PRODUCT_PRICE);
         productModel1.setDescription(TEST_PRODUCT_DESCRIPTION);
         productModel1.setGroup(productGroupModel);
 
         productModel2 = new ProductModel();
-        productModel2.setId(SECOND_TEST_PRODUCT_ID);
+        productModel2.setId(SECOND_TEST_ID);
         productModel2.setName(TEST_PRODUCT_NAME_2);
         productModel2.setPrice(TEST_PRODUCT_PRICE);
         productModel2.setDescription(TEST_PRODUCT_DESCRIPTION);
@@ -102,24 +103,24 @@ public class ProductServiceTest {
         try {
             tested.addProduct(product1);
         } catch (IllegalArgumentException ex) {
-            String message = ex.getMessage();
-            assertEquals(MESSAGE_PRODUCT_IS_PRESENT_IN_DATA_BASE, message);
+            String result = ex.getMessage();
+            assertEquals(MESSAGE_PRODUCT_IS_PRESENT_IN_DATA_BASE, result);
         }
     }
 
     @Test
-    public void tryCreateProductWhenObjectIsNullExpectedException() {
+    public void createProductWhenObjectIsNullExpectedException() {
         try {
             tested.addProduct(null);
         } catch (NullPointerException ex) {
-            String message = ex.getMessage();
-            assertEquals(MESSAGE_PRODUCT_IS_NULL, message);
+            String result = ex.getMessage();
+            assertEquals(MESSAGE_PRODUCT_IS_NULL, result);
         }
     }
 
     @Test
-    public void createNewProductInDataBaseWithoutException() {
-        when(productRepository.findByName(TEST_PRODUCT_NAME_2)).thenReturn(null);
+    public void createNewProductInDataBase() {
+        when(productRepository.findByName(TEST_PRODUCT_NAME_2)).thenReturn(Optional.empty());
         when(productConverter.convertToModel(product2)).thenReturn(productModel2);
         when(productRepository.save(productModel2)).thenReturn(productModel2);
 
@@ -129,18 +130,30 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void findProductWithIdTwoAndReturnProductDto() {
-        when(productRepository.findById(SECOND_TEST_PRODUCT_ID)).thenReturn(Optional.ofNullable(productModel2));
+    public void findProductWithNonExistingIdAndShouldBeException() {
+        when(productRepository.findById(NON_EXISTING_TEST_ID)).thenReturn(Optional.empty());
+
+        try {
+            tested.getProductById(NON_EXISTING_TEST_ID);
+        } catch (ProductNotFoundException ex) {
+            String result = ex.getMessage();
+            assertEquals(MESSAGE_PRODUCT_NOT_FOUND_EXCEPTION, result);
+        }
+    }
+
+    @Test
+    public void findProductWithIdTwoAndReturnProductDtoWithIdTwo() {
+        when(productRepository.findById(SECOND_TEST_ID)).thenReturn(Optional.ofNullable(productModel2));
         when(productConverter.convertToDto(productModel2)).thenReturn(product2);
 
-        ProductDto result = tested.getProductById(SECOND_TEST_PRODUCT_ID);
+        ProductDto result = tested.getProductById(SECOND_TEST_ID);
 
-        assertEquals(SECOND_TEST_PRODUCT_ID, result.getId());
+        assertEquals(SECOND_TEST_ID, result.getId());
         assertEquals(TEST_PRODUCT_NAME_2, result.getName());
     }
 
     @Test
-    public void findAllProductsFromDBAndExpectedReturnListProducts() {
+    public void findAllProductsFromDBAndReturnListProducts() {
         when(productRepository.findAll()).thenReturn(productModels);
         when(productConverter.convertToDto(productModel1)).thenReturn(product1);
         when(productConverter.convertToDto(productModel2)).thenReturn(product2);
@@ -154,23 +167,35 @@ public class ProductServiceTest {
 
     @Test
     public void modifyNotExistingProductExpectedException() {
-        when(productRepository.findById(FIRST_TEST_PRODUCT_ID)).thenReturn(null);
+        when(productRepository.findById(FIRST_TEST_ID)).thenReturn(null);
 
         try {
             tested.editProduct(product2);
         } catch (IllegalArgumentException ex) {
-            String message = ex.getMessage();
-            assertEquals(MESSAGE_SUCH_PRODUCT_DOES_NOT_EXIST, message);
+            String result = ex.getMessage();
+            assertEquals(MESSAGE_SUCH_PRODUCT_DOES_NOT_EXIST, result);
         }
     }
 
     @Test
     public void modifyAnExistingProductExpectedSaveProductInDB() {
-        when(productRepository.findById(SECOND_TEST_PRODUCT_ID)).thenReturn(Optional.ofNullable(productModel2));
+        when(productRepository.findById(SECOND_TEST_ID)).thenReturn(Optional.ofNullable(productModel2));
         when(productConverter.convertToModel(product2)).thenReturn(productModel2);
 
         tested.editProduct(product2);
 
         verify(productRepository).save(any());
+    }
+
+    @Test
+    public void deleteNonExistProductAndExpectedException() {
+        when(productRepository.findById(NON_EXISTING_TEST_ID)).thenReturn(Optional.empty());
+
+        try {
+            tested.deleteProduct(NON_EXISTING_TEST_ID);
+        } catch (ProductNotFoundException ex) {
+            String result = ex.getMessage();
+            assertEquals(MESSAGE_PRODUCT_NOT_FOUND_EXCEPTION, result);
+        }
     }
 }

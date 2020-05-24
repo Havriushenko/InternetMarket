@@ -9,7 +9,6 @@ public class UserDto {
 
     private int id;
     private String name;
-//    @JsonIgnore
     private String password;
     private String surname;
     private String email;

@@ -46,14 +46,14 @@ public class ProductConverterTest {
 
     private void createProductDtos() {
         product1 = new ProductDto();
-        product1.setId(FIRST_TEST_PRODUCT_ID);
+        product1.setId(FIRST_TEST_ID);
         product1.setName(TEST_PRODUCT_NAME_1);
         product1.setPrice(TEST_PRODUCT_PRICE);
         product1.setDescription(TEST_PRODUCT_DESCRIPTION);
         product1.setGroup(productGroup);
 
         product2 = new ProductDto();
-        product2.setId(SECOND_TEST_PRODUCT_ID);
+        product2.setId(SECOND_TEST_ID);
         product2.setName(TEST_PRODUCT_NAME_2);
         product2.setPrice(TEST_PRODUCT_PRICE);
         product2.setDescription(TEST_PRODUCT_DESCRIPTION);
@@ -62,14 +62,14 @@ public class ProductConverterTest {
 
     private void createProductModels() {
         productModel1 = new ProductModel();
-        productModel1.setId(FIRST_TEST_PRODUCT_ID);
+        productModel1.setId(FIRST_TEST_ID);
         productModel1.setName(TEST_PRODUCT_NAME_1);
         productModel1.setPrice(TEST_PRODUCT_PRICE);
         productModel1.setDescription(TEST_PRODUCT_DESCRIPTION);
         productModel1.setGroup(productGroupModel);
 
         productModel2 = new ProductModel();
-        productModel2.setId(SECOND_TEST_PRODUCT_ID);
+        productModel2.setId(SECOND_TEST_ID);
         productModel2.setName(TEST_PRODUCT_NAME_2);
         productModel2.setPrice(TEST_PRODUCT_PRICE);
         productModel2.setDescription(TEST_PRODUCT_DESCRIPTION);

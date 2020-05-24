@@ -18,14 +18,12 @@ import java.time.format.DateTimeFormatter;
 import java.util.Map;
 
 import static com.lowagie.text.Font.BOLD;
-import static pro_area.test_task.havriushenko.internet_market.util.Constans.GENERATE_RECEIPT_ODF_BEAN_NAME;
-import static pro_area.test_task.havriushenko.internet_market.util.Constans.KEY_ORDER_FOR_MAP_PDF;
+import static pro_area.test_task.havriushenko.internet_market.util.Constans.*;
 
 @Component(GENERATE_RECEIPT_ODF_BEAN_NAME)
 public class GenerateReceiptPdf extends AbstractPdfView {
 
     private static final String OOO_NAME_SHOP = "OOO \"Internet Market\"";
-    private static final String PATTERN_FOR_DATE = "yyyy/MM/dd";
 
     private static int FONT_HEADER_SIZE_SMALL = 10;
     private static int FONT_REGULAR_SIZE = 14;

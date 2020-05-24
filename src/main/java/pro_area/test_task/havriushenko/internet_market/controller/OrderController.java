@@ -46,7 +46,7 @@ public class OrderController {
 
     @GetMapping("/receipt")
     public ModelAndView getReceipt(HttpServletRequest req) {
-        return new ModelAndView(GENERATE_RECEIPT_ODF_BEAN_NAME, KEY_ORDER_FOR_MAP_PDF, orderService.getOrder(getUserFromToken(req)));
+        return new ModelAndView(GENERATE_RECEIPT_ODF_BEAN_NAME, KEY_ORDER_FOR_MAP_PDF, orderService.getOrderForReceipt(getUserFromToken(req)));
     }
 
     private String getUserFromToken(HttpServletRequest req) {
@@ -61,6 +61,6 @@ public class OrderController {
                 return user;
             }
         }
-        throw new UsernameNotFoundException(USER_WAS_NOT_FOUND_EXCEPTION);
+        throw new UsernameNotFoundException(MESSAGE_USER_WAS_NOT_FOUND_EXCEPTION);
     }
 }
