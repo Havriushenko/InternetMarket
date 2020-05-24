@@ -72,16 +72,11 @@ public class ProductService {
     }
 
     public ProductDto getProductById(int id) {
-        ProductDto product = productConverter.convertToDto(findProductById(id).get());
-        return product;
-    }
-
-    public ProductModel getProductModelById(int id) {
         Optional<ProductModel> model = findProductById(id);
-        if(model.isPresent()){
-            return model.get();
+        if (model.isPresent()) {
+            return productConverter.convertToDto(model.get());
         }
-        throw new ProductNotFoundException(PRODUCT_NOT_FOUND_EXCEPTION);
+        throw new ProductNotFoundException(MESSAGE_PRODUCT_NOT_FOUND_EXCEPTION);
     }
 
     public void deleteProduct(int id) {
@@ -89,7 +84,7 @@ public class ProductService {
         if(model.isPresent()){
             productRepository.delete(model.get());
         }
-        throw new ProductNotFoundException(PRODUCT_NOT_FOUND_EXCEPTION);
+        throw new ProductNotFoundException(MESSAGE_PRODUCT_NOT_FOUND_EXCEPTION);
     }
 
     private Optional<ProductModel> findProductById(int id) {

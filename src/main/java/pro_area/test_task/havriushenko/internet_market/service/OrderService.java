@@ -11,10 +11,11 @@ import pro_area.test_task.havriushenko.internet_market.model.UserModel;
 import pro_area.test_task.havriushenko.internet_market.repository.OrderInfoRepository;
 import pro_area.test_task.havriushenko.internet_market.repository.OrderRepository;
 
-import java.util.Objects;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.Optional;
 
-import static pro_area.test_task.havriushenko.internet_market.util.Constans.ORDER_WAS_NOT_FOUND_EXCEPTION;
+import static pro_area.test_task.havriushenko.internet_market.util.Constans.*;
 
 @Service
 public class OrderService {
@@ -26,26 +27,22 @@ public class OrderService {
     @Autowired
     private OrderConverter orderConverter;
     @Autowired
-    private ProductService productService;
-    @Autowired
     private OrderInfoRepository orderInfoRepository;
 
-    public OrderService(UserService userService, OrderRepository orderRepository, OrderConverter orderConverter, ProductService productService) {
+    public OrderService(UserService userService, OrderRepository orderRepository, OrderConverter orderConverter, OrderInfoRepository orderInfoRepository) {
         this.userService = userService;
         this.orderRepository = orderRepository;
         this.orderConverter = orderConverter;
-        this.productService = productService;
+        this.orderInfoRepository = orderInfoRepository;
     }
 
     public OrderDto getOrder(String email) {
         UserDto user = userService.findByEmail(email);
-        if (Objects.nonNull(user)) {
-            Optional<OrderModel> model = orderRepository.findOrderByUserIdAndStatus(user.getId(), true);
-            if (model.isPresent()) {
-                return orderConverter.convertToDto(model.get());
-            }
+        Optional<OrderModel> model = orderRepository.findOrderByUserIdAndStatus(user.getId(), true);
+        if (model.isPresent()) {
+            return orderConverter.convertToDto(model.get());
         }
-        throw new OrderNotFoundException(ORDER_WAS_NOT_FOUND_EXCEPTION);
+        throw new OrderNotFoundException(MESSAGE_YOUR_ORDER_IS_EMPTY);
     }
 
     public void putProductToOrder(String email, int productId, int quantity) {
@@ -60,5 +57,17 @@ public class OrderService {
         UserModel user = userService.getUserModelByEmail(email);
         orderRepository.findOrderByUserIdAndStatus(user.getId(), true)
                 .ifPresent(order -> orderInfoRepository.deleteByOrderIdAndProductId(order.getId(), productId));
+    }
+
+    public OrderDto getOrderForReceipt(String email) {
+        UserDto user = userService.findByEmail(email);
+        Optional<OrderModel> model = orderRepository.findOrderByUserIdAndStatus(user.getId(),true);
+        if(model.isPresent()){
+            model.get().setStatus(false);
+            model.get().setData(DateTimeFormatter.ofPattern(PATTERN_FOR_DATE).format(LocalDateTime.now()));
+            orderRepository.save(model.get());
+            return orderConverter.convertToDto(model.get());
+        }
+        throw new OrderNotFoundException(MESSAGE_YOUR_ORDER_IS_EMPTY);
     }
 }

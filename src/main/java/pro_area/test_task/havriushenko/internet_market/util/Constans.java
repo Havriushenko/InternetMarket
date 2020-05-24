@@ -9,8 +9,12 @@ public interface Constans {
     String MESSAGE_PRODUCT_IS_NULL = "product is null";
     String MESSAGE_SUCH_PRODUCT_DOES_NOT_EXIST = "Such product does not exist in data base!";
 
-    String USER_WAS_NOT_FOUND_EXCEPTION = "User was not found";
-    String ORDER_WAS_NOT_FOUND_EXCEPTION = "Order was not found";
-    String PRODUCT_NOT_FOUND_EXCEPTION = "Product was not found";
+    String MESSAGE_USER_WITH_THIS_EMAIL_ALREADY_EXISTS = "User with this email already exists";
+    String MESSAGE_USER_WAS_NOT_FOUND_EXCEPTION = "User was not found";
+    String MESSAGE_ORDER_WAS_NOT_FOUND_EXCEPTION = "Order was not found";
+    String MESSAGE_PRODUCT_NOT_FOUND_EXCEPTION = "Product was not found";
+    String MESSAGE_YOUR_ORDER_IS_EMPTY = "Your order is empty!";
+
+    String PATTERN_FOR_DATE = "yyyy/MM/dd";
 
 }
