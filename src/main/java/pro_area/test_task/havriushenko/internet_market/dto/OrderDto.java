@@ -53,7 +53,7 @@ public class OrderDto {
         this.products = products;
     }
 
-    public boolean isStatus() {
+    public boolean getStatus() {
         return status;
     }
 
@@ -69,6 +69,8 @@ public class OrderDto {
         this.data = data;
     }
 
+
+
     @Override
     public String toString() {
         return "OrderDto[" +
@@ -76,5 +78,26 @@ public class OrderDto {
                 ", status='" + status + '\'' +
                 ", products=" + products +
                 "]";
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 21;
+        int result = 1;
+        result = (int) (prime * result + id);
+        result = prime * result + ((user == null) ? 0 : user.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        OrderDto order = (OrderDto) o;
+        return id == order.getId() && status == order.getStatus() && user == order.getUser();
     }
 }

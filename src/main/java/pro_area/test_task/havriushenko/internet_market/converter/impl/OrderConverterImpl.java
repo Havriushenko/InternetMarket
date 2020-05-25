@@ -42,8 +42,10 @@ public class OrderConverterImpl implements OrderConverter {
 
     private Map<ProductDto, Integer> convertOrderInfoToMap(Set<OrderInfoModel> orderInfoModelSet) {
         Map<ProductDto, Integer> products = new HashMap<ProductDto, Integer>();
-        for (OrderInfoModel model : orderInfoModelSet) {
-            products.put(productConverter.convertToDto(model.getProduct()), model.getQuantity());
+        if(!orderInfoModelSet.isEmpty()){
+            for (OrderInfoModel model : orderInfoModelSet) {
+                products.put(productConverter.convertToDto(model.getProduct()), model.getQuantity());
+            }
         }
         return products;
     }
@@ -51,18 +53,22 @@ public class OrderConverterImpl implements OrderConverter {
     @Override
     public OrderModel convertToModel(OrderDto order) {
         OrderModel model = new OrderModel();
+        model.setId(order.getId());
         model.setUser(userConverter.convertToModel(order.getUser()));
+        model.setStatus(order.getStatus());
         model.setOrderInfoModels(convertOrderInfoToSet(order.getProducts(), order));
         return model;
     }
 
     private Set<OrderInfoModel> convertOrderInfoToSet(Map<ProductDto, Integer> products, OrderDto order) {
         Set<OrderInfoModel> orderInfoModels = new HashSet<OrderInfoModel>();
-        for (Map.Entry<ProductDto, Integer> model : products.entrySet()) {
-            OrderInfoModel orderInfoModel = new OrderInfoModel();
-            orderInfoModel.setOrderInfoKey(relationOrderInfoKey(order, model.getKey()));
-            orderInfoModel.setProductId(productConverter.convertToModel(model.getKey()));
-            orderInfoModels.add(orderInfoModel);
+        if(!products.isEmpty()){
+            for (Map.Entry<ProductDto, Integer> model : products.entrySet()) {
+                OrderInfoModel orderInfoModel = new OrderInfoModel();
+                orderInfoModel.setOrderInfoKey(relationOrderInfoKey(order, model.getKey()));
+                orderInfoModel.setProductId(productConverter.convertToModel(model.getKey()));
+                orderInfoModels.add(orderInfoModel);
+            }
         }
         return orderInfoModels;
     }
