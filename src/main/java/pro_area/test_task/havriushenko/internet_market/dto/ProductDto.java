@@ -90,6 +90,6 @@ public class ProductDto {
             return false;
         }
         ProductDto product = (ProductDto) o;
-        return id == product.id && name == product.name;
+        return id == product.getId() && name == product.getName();
     }
 }

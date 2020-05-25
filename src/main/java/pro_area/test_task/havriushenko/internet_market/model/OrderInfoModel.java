@@ -76,9 +76,30 @@ public class OrderInfoModel implements Serializable {
 
     @Override
     public String toString() {
-        return "OrderInfoDto[" +
-//                "product= " + product +
+        return "OrderInfoModel[" +
+                "product= " + product +
                 ", quantity= " + quantity +
                 "]";
+    }
+
+    @Override
+    public int hashCode() {
+        final int prime = 37;
+        int result = 1;
+        result = (int) (prime * result * product.getId());
+        result = prime * result + ((product.getName() == null) ? 0 : product.hashCode());
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
+        OrderInfoModel orderInfo = (OrderInfoModel) o;
+        return quantity == orderInfo.getQuantity() && product == orderInfo.getProduct() && order == orderInfo.getOrder();
     }
 }

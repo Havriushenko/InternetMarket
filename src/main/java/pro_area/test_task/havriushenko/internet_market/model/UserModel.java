@@ -112,6 +112,6 @@ public class UserModel {
             return false;
         }
         UserModel user = (UserModel) o;
-        return id == user.id && name == user.name;
+        return id == user.getId() && email == user.getEmail();
     }
 }

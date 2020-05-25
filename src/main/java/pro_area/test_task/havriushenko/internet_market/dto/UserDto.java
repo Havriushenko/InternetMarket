@@ -88,7 +88,7 @@ public class UserDto {
         final int prime = 37;
         int result = 1;
         result = (int) (prime * result + id);
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
+        result = prime * result + ((email == null) ? 0 : email.hashCode());
         return result;
     }
 
@@ -101,6 +101,6 @@ public class UserDto {
             return false;
         }
         UserDto user = (UserDto) o;
-        return id == user.id && name == user.name;
+        return id == user.getId() && email == user.getEmail();
     }
 }
