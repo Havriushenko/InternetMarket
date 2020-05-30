@@ -97,7 +97,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void createProductWithIdOneWhenProductIsPresentInDataExpectedException() {
+    public void throwExceptionWhenProductAlredyExists() {
         when(productRepository.findByName(TEST_PRODUCT_NAME_1)).thenReturn(Optional.ofNullable(productModel1));
 
         try {
@@ -109,7 +109,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void createProductWhenObjectIsNullExpectedException() {
+    public void throwExceptionWhenProductDtoIsNull() {
         try {
             tested.addProduct(null);
         } catch (NullPointerException ex) {
@@ -119,7 +119,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void createNewProductInDataBase() {
+    public void createNewProduct() {
         when(productRepository.findByName(TEST_PRODUCT_NAME_2)).thenReturn(Optional.empty());
         when(productConverter.convertToModel(product2)).thenReturn(productModel2);
         when(productRepository.save(productModel2)).thenReturn(productModel2);
@@ -130,7 +130,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void findProductWithNonExistingIdAndShouldBeException() {
+    public void throwExceptionWhenProductDoesNotExist() {
         when(productRepository.findById(NON_EXISTING_TEST_ID)).thenReturn(Optional.empty());
 
         try {
@@ -142,7 +142,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void findProductWithIdTwoAndReturnProductDtoWithIdTwo() {
+    public void findProductById() {
         when(productRepository.findById(SECOND_TEST_ID)).thenReturn(Optional.ofNullable(productModel2));
         when(productConverter.convertToDto(productModel2)).thenReturn(product2);
 
@@ -153,7 +153,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void findAllProductsFromDBAndReturnListProducts() {
+    public void findAllProducts() {
         when(productRepository.findAll()).thenReturn(productModels);
         when(productConverter.convertToDto(productModel1)).thenReturn(product1);
         when(productConverter.convertToDto(productModel2)).thenReturn(product2);
@@ -166,7 +166,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void modifyNotExistingProductExpectedException() {
+    public void throwExceptionWhenModifyNotExistingProduct() {
         when(productRepository.findById(FIRST_TEST_ID)).thenReturn(null);
 
         try {
@@ -178,7 +178,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void modifyAnExistingProductExpectedSaveProductInDB() {
+    public void modifyAnExistingProductExpected() {
         when(productRepository.findById(SECOND_TEST_ID)).thenReturn(Optional.ofNullable(productModel2));
         when(productConverter.convertToModel(product2)).thenReturn(productModel2);
 
@@ -188,7 +188,7 @@ public class ProductServiceTest {
     }
 
     @Test
-    public void deleteNonExistProductAndExpectedException() {
+    public void throwExceptionWhenDeleteNonExistProductAnd() {
         when(productRepository.findById(NON_EXISTING_TEST_ID)).thenReturn(Optional.empty());
 
         try {

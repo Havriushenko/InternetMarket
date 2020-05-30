@@ -91,7 +91,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void singUpUserWithFirstTestUserEmail() {
+    public void singUpNewUser() {
         when(userRepository.findByEmail(FIRST_TEST_USER_EMAIL)).thenReturn(Optional.empty());
         when(bCryptPasswordEncoder.encode(userDto1.getPassword())).thenReturn(userDto1.getPassword());
         when(userConverter.convertToModel(userDto1)).thenReturn(userModel1);
@@ -102,7 +102,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void singUpExistUserWithSecondTestUserEmail() {
+    public void throwExceptionWhenUserIsAlreadyExists() {
         when(userRepository.findByEmail(SECOND_TEST_USER_EMAIL)).thenReturn(Optional.of(userModel2));
 
         try {
@@ -115,7 +115,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void findUserByEmailWhereMailEqualsFirstUserEmail() {
+    public void findUserByEmail() {
         when(userRepository.findByEmail(FIRST_TEST_USER_EMAIL)).thenReturn(Optional.of(userModel1));
         when(userConverter.convertToDto(userModel1)).thenReturn(userDto1);
 
@@ -126,7 +126,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void findUserByEmailWitchNotExist() {
+    public void throwExceptionWhenFindUserWitchNotExist() {
         when(userRepository.findByEmail(NON_EXIST_USER_EMAIL)).thenReturn(Optional.empty());
 
         try {
@@ -139,7 +139,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void getUserModelBySecondTestUserEmail() {
+    public void getUserModelByEmail() {
         when(userRepository.findByEmail(SECOND_TEST_USER_EMAIL)).thenReturn(Optional.ofNullable(userModel2));
 
         UserModel result = tested.getUserModelByEmail(SECOND_TEST_USER_EMAIL);
@@ -149,7 +149,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void findUserModelByEmailWitchNonExist() {
+    public void throwExceptionWhenFindUserModelWitchNotExist() {
         when(userRepository.findByEmail(NON_EXIST_USER_EMAIL)).thenReturn(Optional.empty());
 
         try {
@@ -162,7 +162,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void loadUserByFirstTestUserEmail() {
+    public void loadUserByEmail() {
         when(userRepository.findByEmail(FIRST_TEST_USER_EMAIL)).thenReturn(Optional.of(userModel1));
 
         UserDetails result = tested.loadUserByUsername(FIRST_TEST_USER_EMAIL);
@@ -172,7 +172,7 @@ public class UserServiceTest {
     }
 
     @Test
-    public void loadUserByEmailWitchNonExist() {
+    public void throwExceptionWhenLoadUserByEmailWitchNonExist() {
         when(userRepository.findByEmail(NON_EXIST_USER_EMAIL)).thenReturn(Optional.empty());
 
         try {
