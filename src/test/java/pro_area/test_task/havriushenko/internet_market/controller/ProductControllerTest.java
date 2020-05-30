@@ -59,7 +59,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void findAllProductFromDataBaseAndReturnProductList() throws Exception {
+    public void getAllProducts() throws Exception {
         this.mockMvc.perform(get(REST_PRODUCT + "/getProducts"))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -78,7 +78,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void findProductWithIdAndReturnProductDtoWithIdOne() throws Exception {
+    public void findProductById() throws Exception {
         this.mockMvc.perform(get(REST_PRODUCT + "/getProductById?id=1"))
                 .andDo(print())
                 .andExpect(status().isOk())
@@ -95,7 +95,7 @@ public class ProductControllerTest {
     }
 
     @Test
-    public void createTestProductAndExpectedIsOk() throws Exception {
+    public void createTestProduct() throws Exception {
         ObjectMapper mapper = new ObjectMapper();
         mapper.configure(SerializationFeature.WRAP_ROOT_VALUE, false);
         ObjectWriter ow = mapper.writer().withDefaultPrettyPrinter();

@@ -77,7 +77,7 @@ public class ProductConverterTest {
     }
 
     @Test
-    public void convertProductWithIdOneToModelExpectedProductModelWithIdOne() {
+    public void convertProductDtoToProductModel() {
         when(productGroupConverter.convertToModel(productGroup)).thenReturn(productGroupModel);
 
         ProductModel result = tested.convertToModel(product1);
@@ -87,7 +87,7 @@ public class ProductConverterTest {
     }
 
     @Test
-    public void convertProductModelWithIdTwoToDtoExpectedProductDtoWithIdTwo() {
+    public void convertProductModelToProductDto() {
         when(productGroupConverter.convertToDto(productGroupModel)).thenReturn(productGroup);
 
         ProductDto result = tested.convertToDto(productModel1);

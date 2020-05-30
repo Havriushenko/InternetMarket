@@ -102,7 +102,7 @@ public class OrderServiceTest {
     }
 
     @Test
-    public void findOrderWhereUserEmailIsFirstUserEmail() {
+    public void findProductByEmail() {
         when(userService.findByEmail(FIRST_TEST_USER_EMAIL)).thenReturn(userDto);
         when(orderRepository.findOrderByUserIdAndStatus(userModel.getId(), true)).thenReturn(Optional.ofNullable(orderModel));
         when(orderConverter.convertToDto(orderModel)).thenReturn(orderDto);
@@ -114,7 +114,7 @@ public class OrderServiceTest {
     }
 
     @Test
-    public void getOrderByFirstUserEmailWhereUserHasAllOrdersInStatusFalse() {
+    public void throwExceptionWhenUserHasOnlyOrdersInStatusFalse() {
         when(userService.findByEmail(FIRST_TEST_USER_EMAIL)).thenReturn(userDto);
 
         try {
@@ -127,7 +127,7 @@ public class OrderServiceTest {
     }
 
     @Test
-    public void putProductToOrderOneAndShouldCallUpsertMethodFromRepo() {
+    public void addNewProductToExistingOrder() {
         when(userService.getUserModelByEmail(FIRST_TEST_USER_EMAIL)).thenReturn(userModel);
         when(orderRepository.findOrderByUserIdAndStatus(userDto.getId(), true)).thenReturn(Optional.ofNullable(orderModel));
 
@@ -137,7 +137,7 @@ public class OrderServiceTest {
     }
 
     @Test
-    public void putProductInNewOrder() {
+    public void addNewProductToNewOrder() {
         when(userService.getUserModelByEmail(FIRST_TEST_USER_EMAIL)).thenReturn(userModel);
         when(orderRepository.save(any())).thenReturn(new OrderModel(true, userModel));
 
@@ -148,7 +148,7 @@ public class OrderServiceTest {
     }
 
     @Test
-    public void deleteProductWithIdOneFromOrder() {
+    public void deleteProductFromOrder() {
         when(userService.getUserModelByEmail(FIRST_TEST_USER_EMAIL)).thenReturn(userModel);
         when(orderRepository.findOrderByUserIdAndStatus(userModel.getId(),true)).thenReturn(Optional.ofNullable(orderModel));
 
